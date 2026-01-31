@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+
+.split-btn {
+  position: relative;
+  border-radius: 9999px;
+  overflow: hidden;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 0; /* géré par spans */
+}
+
+/* h2 {
+  font-family: "Instrument Serif", serif;
+} */
+
+/* couche du dessous */
+.split-btn__base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 22px;
+  border-radius: 9999px;
+  background: #ffffff;      /* couleur révélée */
+  color: #FF6A00;           /* texte révélé */
+}
+
+/* couche du dessus (2 moitiés) */
+.split-btn__top {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 22px;
+  border-radius: 9999px;
+  background: #FF6A00;      /* couleur initiale */
+  color: #ffffff;           /* texte initial */
+  transition: clip-path 420ms cubic-bezier(.2,.9,.2,1);
+  will-change: clip-path;
+}
+
+/* moitié gauche visible */
+.split-btn__top--left {
+  clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}
+
+/* moitié droite visible */
+.split-btn__top--right {
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+}
+
+/* hover : les 2 moitiés s’éloignent => reveal */
+.split-btn:hover .split-btn__top--left {
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+}
+.split-btn:hover .split-btn__top--right {
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+
+/* petit polish */
+.split-btn:focus-visible {
+  outline: 3px solid rgba(255,255,255,0.65);
+  outline-offset: 4px;
+}
+
+
+.services-title-reveal{
+  /* --reveal : 0 -> 1 */
+  --reveal: 0;
+
+  /* on affiche une bande au centre qui s’élargit */
+  clip-path: polygon(
+    calc(50% - (var(--reveal) * 50%)) 0%,
+    calc(50% + (var(--reveal) * 50%)) 0%,
+    calc(50% + (var(--reveal) * 50%)) 100%,
+    calc(50% - (var(--reveal) * 50%)) 100%
+  );
+  will-change: clip-path;
+}
+
+
+.wipe-btn{
+  position: relative;
+  display: inline-block;
+  border-radius: 9999px;
+  overflow: hidden;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.wipe-btn__icon{
+  margin-left: 10px;
+  display: inline-block;
+  transform: translateY(-1px);
+}
+
+.wipe-btn__base{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: 9999px;
+  background: #ffffff;      /* couche finale */
+  color: #0a2540;
+  border: 1px solid rgba(10,37,64,.10);
+}
+
+.wipe-btn__top{
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: 9999px;
+  background: #1e245c;      /* couche initiale */
+  color: #ffffff;
+
+  /* visible au départ, disparaît de gauche -> droite */
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  transition: clip-path 420ms cubic-bezier(.2,.9,.2,1);
+  will-change: clip-path;
+}
+
+.wipe-btn:hover .wipe-btn__top{
+  /* disparition de gauche -> droite */
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+}
+
+.wipe-btn:focus-visible{
+  outline: 3px solid rgba(30,36,92,.35);
+  outline-offset: 4px;
+}
